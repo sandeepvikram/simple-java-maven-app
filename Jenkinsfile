@@ -13,7 +13,7 @@ pipeline {
     stages {
         stage('scm') {
             steps {
-                git branch: "${params.BRANCH}", url: "${env.GIT_URL}", 
+                git branch: "${params.BRANCH}", url: "${env.GIT_URL}"
                 echo env.CI_ENV
             }
         }
