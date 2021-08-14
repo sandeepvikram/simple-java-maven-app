@@ -38,4 +38,12 @@ pipeline {
             }
         }
     }
+    post {
+        success {
+            echo 'The code ran good!'
+        }
+        failure {
+            echo 'The code has an error'
+        }
+    }
 }
