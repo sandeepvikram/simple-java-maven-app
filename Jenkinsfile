@@ -10,6 +10,9 @@ pipeline {
         CI_ENV = 'DEV'
         GIT_URL = 'https://github.com/sandeepvikram/simple-java-maven-app.git'
     }
+    options {
+        retry(3)
+    }
     stages {
         stage('scm') {
             steps {
