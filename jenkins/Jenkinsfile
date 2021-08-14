@@ -1,11 +1,22 @@
 pipeline {
-    agent {
-        docker {
-            image 'maven:3-alpine'
-            args '-v /root/.m2:/root/.m2'
-        }
+    agent { label 'SPC'}
+    triggers {
+        pollSCM ('* * * * *')
+    }
+    parameters {
+        string (name: 'BRANCH', defaultValue: 'master', description: 'Git branch to build')
+    }
+    environment {
+        CI_ENV = 'DEV'
+        GIT_URL = 'https://github.com/sandeepvikram/simple-java-maven-app.git'
     }
     stages {
+        stage('scm') {
+            steps {
+                git branch: "${params.BRANCH}", url: "${env.GIT_URL}", 
+                echo env.CI_ENV
+            }
+        }
         stage('Build') {
             steps {
                 sh 'mvn -B -DskipTests clean package'
